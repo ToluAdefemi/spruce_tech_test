@@ -1,7 +1,7 @@
 # Task Thoughts:
 
-##Problem 1: 
-###Limitations: 
+## Problem 1: 
+### Limitations: 
 Since I was creating a simplistic version of the game, the main things that I can improve on is: 
 1. UI/UX of design
     - Improving the modals and buttons for how it is presented that a person wins(kept it minimal currently)
@@ -10,11 +10,11 @@ Since I was creating a simplistic version of the game, the main things that I ca
 3. Testing. Can add testing for individual flows to ensure that they work. Currently only test the file that checks for a winner(and haven't included some various scenarios(e.g. draws, conditions during games)), however can test other functionality(e.g. the game logic and adding error cases). 
 
 
-##Problem 2: 
+## Problem 2: 
 Changed the file structure a bit to be able to accomodate the new functionality. Similar thoughts to the first problem, in which more testing could be added to check complete functionality. Changed the winning function (see winner.ts file) to something that can scale/accomodate different sizes and variations of the game and moved the board/ restart functionalities out of the main file to their own component, whilst adding functionalities to be able to change board size(within limit). 
 Note: Main thought process was about if the winning condition would change(e.g. be more than 3 in a row), so made it customisable with a win length variable that a user can select. 
 
-##Problem 3:
+## Problem 3:
  Did not start problem 3, however general approach would be: 
 - Create DB containing a players table, storing a players name(or X/O), player ID, and a games table that has information about each game, where it stores winner(joined by ID)/ outcome of games. Can add additional info(e.g. size of game, conditions to win etc..). DB info would be stored in a .env file.  
 - I would create endpoints(POST/GET) to be able to fetch information from the backend(using express), which would be triggered at the end of a game(when winner/draw).
