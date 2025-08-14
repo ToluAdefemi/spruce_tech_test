@@ -1,22 +1,58 @@
-import React, { useState } from 'react'
-import { XorO } from './types'
-
+import React from 'react'
+import { Board } from './components/Board'
+import { GameStatus } from './components/GameStatus'
+import { RestartButton } from './components/RestartButton'
+import { GameLogic } from './hooks/GameLogic'
 
 export const Main = () => {
-  const [board, setBoard] = useState<(XorO | undefined)[][]>([
-    [undefined, undefined, undefined],
-    [undefined, undefined, undefined],
-    [undefined, undefined, undefined]
-  ])
+  const { 
+    board,
+     winner, 
+     gameStatus, 
+     handleMove, 
+     restartGame,
+      boardSize, 
+      changeBoardSize, 
+      winLength, 
+      setWinLength
+     } = GameLogic()
 
-  return <div className='flex flex-col mt-10 items-center gap-10'>
-    <div className='font-bold text-2xl'>Tic Tac Toe</div>
-    <div className='flex flex-col gap-1'>
-      {board.map(row => <div className='flex gap-1'>
-        {row.map(column => <div className='border-2 border-gray-900 w-10 h-10 cursor-pointer items-center justify-center text-2xl font-bold flex'>
-          {column}
-        </div>)}
-      </div>)}
+  return (
+    <div className='flex flex-col mt-10 items-center gap-6'>
+      <div className='font-bold text-2xl'>Tic Tac Toe</div>
+
+      <div className='flex items-center gap-4'>
+        <label className='flex items-center gap-2'>
+          <span>Board size</span>
+          <input
+            type='number'
+            min={3}
+            max={15}
+            value={boardSize}
+            onChange={(e) => changeBoardSize(Number(e.target.value))}
+            className='border px-2 py-1 w-20 disabled:opacity-50 disabled:bg-gray-100'
+            disabled={gameStatus === 'in-progress'}
+          />
+        </label>
+        <label className='flex items-center gap-2'>
+          <span>Win length</span>
+          <input
+            type='number'
+            min={3}
+            max={boardSize}
+            value={winLength}
+            onChange={(e) => setWinLength(Math.max(3, Math.min(boardSize, Number(e.target.value))))}
+            className='border px-2 py-1 w-20 disabled:opacity-50 disabled:bg-gray-100'
+            disabled={gameStatus === 'in-progress'}
+          />
+        </label>
+      </div>
+      
+      <Board board={board} onSquareClick={handleMove} />
+      
+      <GameStatus winner={winner} gameStatus={gameStatus} />
+      
+      <RestartButton gameStatus={gameStatus} onRestart={restartGame} />
     </div>
-  </div>
+  )
 }
